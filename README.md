@@ -1,4 +1,4 @@
-# Blacklight Enterprise Lab
+# Enterprise SOC Lab
 
 This is my long-term homelab for practicing cybersecurity in a more realistic environment than isolated class exercises.
 
