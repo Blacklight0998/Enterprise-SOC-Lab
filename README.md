@@ -21,9 +21,17 @@ Over time I want to use it for things such as:
 
 ## Current status
 
-Early build / in progress.
+Early build / in progress. One triage case completed so far; no SIEM is deployed yet.
 
 At this stage I am using the repository to document the environment and the work I complete as it becomes real. I do not want to list planned tools or features as if they were already deployed.
+
+## Cases
+
+| Case | Summary | Disposition |
+|---|---|---|
+| [BL-ALT-2026-001](./incident-response/cases/BL-ALT-2026-001/triage.md) | Four failed interactive logons (incorrect Windows Hello PIN), generated as a lab test and followed by a normal unlock | Benign Positive (lab-generated) |
+
+Cases use the [SOC alert triage template](./incident-response/templates/SOC-INCIDENT-TRIAGE-TEMPLATE.md).
 
 ## Environment
 

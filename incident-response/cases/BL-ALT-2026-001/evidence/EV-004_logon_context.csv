@@ -1,0 +1,9 @@
+Hora,Id,Cuenta,Tipo,Proceso,IP
+23/10/2026 15:53:27,4672,[redacted],,,
+23/10/2026 15:53:27,4624,[redacted],7,C:\Windows\System32\lsass.exe,-
+23/10/2026 15:53:27,4624,[redacted],7,C:\Windows\System32\lsass.exe,-
+23/10/2026 15:53:27,4648,[redacted],,C:\Windows\System32\lsass.exe,-
+23/10/2026 15:53:27,4672,[redacted],,,
+23/10/2026 15:53:27,4624,[redacted],11,C:\Windows\System32\svchost.exe,127.0.0.1
+23/10/2026 15:53:27,4624,[redacted],11,C:\Windows\System32\svchost.exe,127.0.0.1
+23/10/2026 15:53:27,4648,[redacted],,C:\Windows\System32\svchost.exe,127.0.0.1
