@@ -27,7 +27,13 @@
 
 A simulated password-guessing attack was run from a Kali Linux VM against the RDP service of `vm-win-soc-lab` (Azure), using the non-existent local account `hacker1`. Eight connection attempts were made with `xfreerdp` in two sub-bursts, about 2.5 minutes apart, all using an intentionally incorrect credential. All eight were rejected by Windows and logged as Event ID 4625.
 
+![Kali terminal: two bursts of failed xfreerdp attempts (source IP and test password redacted)](./evidence/02_kali_rdp_attempts.png)
+*EV-002 — Kali terminal, two bursts of failed `xfreerdp` connection attempts.*
+
 A custom Sentinel Analytics Rule, built specifically for this test, aggregates 4625 events in 5-minute windows and fires when 5 or more failures come from the same source in that window. The rule correctly detected the burst and Sentinel created incident `ID 332358`, correlating the source IP, the target host and the account name into a single graph.
+
+![NSG rule restricting RDP to one source /32 (IP redacted)](./evidence/01_nsg_rdp_rule.png)
+*EV-001 — NSG rule `default-allow-rdp`, restricting RDP to the Kali VM's public IP only.*
 
 ### Detection Logic
 
@@ -43,9 +49,21 @@ SecurityEvent
 
 Scheduled every 5 minutes, looking back 15 minutes, alert threshold "greater than 0 results". See Section 13 for the configuration mistakes found and corrected while building this rule.
 
+![Raw query: the 8 Event ID 4625 failures (source IP redacted)](./evidence/03_4625_raw_events.png)
+*EV-003 — Raw query result: the 8 Event ID 4625 failures.*
+
+![Same burst grouped, no threshold applied (IP redacted)](./evidence/04_grouped_no_threshold.png)
+*EV-004 — The same burst, grouped by 5-minute window, before any threshold.*
+
+![Earlier threshold test, Failures >= 8 (IP redacted)](./evidence/05_threshold_test_8.png)
+*EV-005 — An earlier, stricter threshold (>= 8) tested before settling on 5.*
+
 ### Initial Context
 
 This case was built to close the biggest gap identified in the portfolio review: no SIEM-based detection existed yet. Unlike case [`BL-ALT-2026-001`](../BL-ALT-2026-001/triage.md) (a single local PIN mistake with no useful IP or account name), this case simulates a network-based brute-force attempt with a real external source IP and an account name captured end-to-end, so the full Sentinel entity-mapping and incident-graph workflow could be exercised.
+
+![Incident 332358 investigation graph: IP, host and account connected (IP redacted)](./evidence/07_incident_graph.png)
+*EV-007 — Incident `332358` investigation graph: source IP → host → account.*
 
 ---
 
@@ -154,6 +172,12 @@ Not performed. Both IP addresses are known lab infrastructure (the analyst's own
 ### Analyst Confidence
 
 - [x] High
+
+![Incident Alerts tab: 2 alerts grouped into 1 incident](./evidence/08_incident_alerts_tab.png)
+*EV-008 — The incident's `Alerts` tab, showing 2 alerts grouped into 1 incident.*
+
+![Incident Assets tab: host risk and exposure level](./evidence/09_incident_assets_tab.png)
+*EV-009 — The incident's `Assets` tab.*
 
 ### Assessment
 
@@ -272,6 +296,9 @@ Analyst notes:
 | **Final Disposition** | True Positive — detection validation (lab-generated). Sentinel classification: Informational, expected activity → Security testing |
 | **Closure Time** | 2026-10-24 |
 | **Resolution** | No action required. Rule validated after two configuration fixes; see Section 13 |
+
+![Incident closure: Informational, expected activity -> Security testing](./evidence/10_incident_closure.png)
+*EV-010 — Incident closure, classified as Informational, expected activity → Security testing.*
 
 ### Closure Summary
 

@@ -29,7 +29,13 @@ Four Windows Security Event ID 4625 (failed logon) events were recorded within a
 
 About 16 seconds after the last failure (15:53:27), a successful logon and unlock sequence was recorded: Event IDs 4624, 4648 and 4672.
 
+![4624, 4648 and 4672 events at 15:53:27, account redacted](./evidence/EV-004_logon_context.png)
+*EV-004 — Query 2 result: the successful unlock sequence right after.*
+
 The analyst generated this activity on purpose to practice triage: three incorrect Windows Hello PIN entries were intended between 15:52 and 15:55, followed by a normal sign-in. Four failure events were recorded instead of three (see Section 13).
+
+![Four 4625 events, account/cuenta redacted, SubStatus 0xC0000380 (incorrect PIN)](./evidence/EV-003_4625_events.png)
+*EV-003 — Query 1 result: the four 4625 events.*
 
 ### Detection Logic
 
@@ -254,6 +260,12 @@ Brute Force (T1110) was considered because the pattern resembles it, but it is n
 
 - Evidence preserved in `evidence/` (screenshots and CSV transcriptions, account name redacted).
 - Other (not applied yet): the Security log is a circular log of 20 MB (`20,971,520` bytes) with 33,105 records, and its oldest event is from 2026-10-17 10:16:39. That is roughly 6 days of history at the current event volume, so older events are overwritten. Recommend increasing the maximum size and, once the lab has a SIEM, forwarding Windows logs to it.
+
+![Security log mode, maximum size and record count](./evidence/EV-001_security_log_size.png)
+*EV-001 — Security log mode, maximum size and record count.*
+
+![Oldest event in the Security log: 2026-10-17 10:16:39](./evidence/EV-002_oldest_event.png)
+*EV-002 — Oldest event in the Security log, confirming the ~6-day retention window.*
 
 ---
 
