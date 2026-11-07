@@ -1,49 +1,69 @@
-# Enterprise SOC Lab
+# Enterprise SOC Detection & Incident Response Lab
 
-This is my long-term homelab for practicing cybersecurity in a more realistic environment than isolated class exercises.
+This is my long-term homelab for practicing security monitoring, detection engineering and incident investigation in a more realistic environment than isolated class exercises.
 
-The project is still in progress. I am building it gradually while I learn more about networking, Windows, Linux, monitoring and incident investigation.
+The lab is still in progress. I expand it gradually and only document capabilities after I have implemented and tested them.
 
 ## Goal
 
-The idea is to have one lab that I can keep expanding instead of creating a new environment for every topic.
+The goal is to maintain one environment that can grow with my SOC / Blue Team skills instead of creating a disconnected lab for every topic.
 
-Over time I want to use it for things such as:
+Current and future work is centered on:
 
-- Windows and Linux administration
-- network troubleshooting
-- security monitoring
-- log collection
-- incident investigation
-- Active Directory practice
-- SIEM labs
-- Blue Team exercises
+- Windows security monitoring;
+- log collection and analysis;
+- Microsoft Sentinel and KQL;
+- detection engineering;
+- alert and incident triage;
+- Linux monitoring;
+- Windows / Active Directory practice as the environment expands.
 
 ## Current status
 
-Early build / in progress. Two triage cases completed so far; an Azure Sentinel SIEM pipeline is deployed and used for case 002.
+**Active build / in progress.** Two triage cases are documented. The second case validates an end-to-end Microsoft Sentinel detection workflow using lab-generated RDP authentication failures.
 
-At this stage I am using the repository to document the environment and the work I complete as it becomes real. I do not want to list planned tools or features as if they were already deployed.
+### Current Sentinel pipeline
+
+```text
+Windows Server VM
+        ↓
+Windows Security Events
+        ↓
+Azure Monitor Agent + Data Collection Rule
+        ↓
+Log Analytics Workspace
+        ↓
+Microsoft Sentinel
+        ↓
+KQL / Analytics Rule
+        ↓
+Alert + Incident
+        ↓
+SOC triage and closure
+```
 
 ## Cases
 
 | Case | Summary | Disposition |
 |---|---|---|
 | [BL-ALT-2026-001](./incident-response/cases/BL-ALT-2026-001/triage.md) | Four failed interactive logons (incorrect Windows Hello PIN), generated as a lab test and followed by a normal unlock | Benign Positive (lab-generated) |
-| [BL-ALT-2026-002](./incident-response/cases/BL-ALT-2026-002/triage.md) | Simulated RDP brute-force (8 failed logons, non-existent account) against the Azure Sentinel lab, detected end-to-end by a custom Analytics Rule | True Positive — detection validation (lab-generated) |
+| [BL-ALT-2026-002](./incident-response/cases/BL-ALT-2026-002/triage.md) | Simulated RDP brute-force activity against the Azure lab, detected end-to-end with a custom Microsoft Sentinel Analytics Rule | True Positive — detection validation (lab-generated) |
 
 Cases use the [SOC alert triage template](./incident-response/templates/SOC-INCIDENT-TRIAGE-TEMPLATE.md).
 
-## Environment
+## Current environment and tools
 
-Current tools/platforms I am using or preparing around this lab:
-
-- Oracle VirtualBox
-- Windows
-- Linux
-
-More documentation will be added as I build and test each part of the environment.
+- Microsoft Azure
+- Microsoft Sentinel
+- Log Analytics Workspace
+- Azure Monitor Agent
+- Data Collection Rules
+- Windows Server
+- Windows Security Event logs
+- KQL
+- Kali Linux for authorized lab activity generation
+- Oracle VirtualBox for local lab work
 
 ## Why I keep this separate
 
-Most of my other portfolio work started from focused university exercises. This repository is different: the goal is to keep one environment alive and improve it over time as my SOC and Blue Team skills grow.
+Most of my other portfolio work started from focused university exercises. This repository is different: it is an ongoing environment that I can keep expanding as my SOC and Blue Team skills develop.
