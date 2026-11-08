@@ -1,0 +1,10 @@
+SecurityEvent
+| where Computer == "vm-win-soc-lab"
+| where EventID == 4688
+| where NewProcessName endswith @"\cmd.exe"
+| summarize
+    CmdExecutions = count(),
+    FirstSeen = min(TimeGenerated),
+    LastSeen = max(TimeGenerated)
+    by Computer, Account, bin(TimeGenerated, 1m)
+| where CmdExecutions >= 10

@@ -20,7 +20,7 @@ Current and future work is centered on:
 
 ## Current status
 
-**Active build / in progress.** Two triage cases are documented. The second case validates an end-to-end Microsoft Sentinel detection workflow using lab-generated RDP authentication failures.
+**Active build / in progress.** Three triage cases are documented. The lab now covers local authentication triage, end-to-end RDP brute-force detection, and Windows process-behavior detection with containment and AppLocker mitigation.
 
 ### Current Sentinel pipeline
 
@@ -48,6 +48,7 @@ SOC triage and closure
 |---|---|---|
 | [BL-ALT-2026-001](./incident-response/cases/BL-ALT-2026-001/triage.md) | Four failed interactive logons (incorrect Windows Hello PIN), generated as a lab test and followed by a normal unlock | Benign Positive (lab-generated) |
 | [BL-ALT-2026-002](./incident-response/cases/BL-ALT-2026-002/triage.md) | Simulated RDP brute-force activity against the Azure lab, detected end-to-end with a custom Microsoft Sentinel Analytics Rule | True Positive — detection validation (lab-generated) |
+| [BL-ALT-2026-003](./incident-response/cases/BL-ALT-2026-003/triage.md) | Controlled repeated `cmd.exe` process creation detected through Event ID 4688 and Microsoft Sentinel, followed by process investigation, containment, AppLocker mitigation and post-mitigation validation | Benign Positive — authorized security testing |
 
 Cases use the [SOC alert triage template](./incident-response/templates/SOC-INCIDENT-TRIAGE-TEMPLATE.md).
 
@@ -61,6 +62,7 @@ Cases use the [SOC alert triage template](./incident-response/templates/SOC-INCI
 - Windows Server
 - Windows Security Event logs
 - KQL
+- AppLocker
 - Kali Linux for authorized lab activity generation
 - Oracle VirtualBox for local lab work
 
